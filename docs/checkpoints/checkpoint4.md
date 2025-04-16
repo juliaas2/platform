@@ -27,7 +27,7 @@ To run this container:
 docker compose up -d --build
 ```
 
-``` { bash }
+``` bash
 jenkins/# docker compose up -d --build
 
 [+] Running 2/2
@@ -36,6 +36,18 @@ jenkins/# docker compose up -d --build
 ```
 
 Jenkins is now running on port 9080. You can access it by navigating to [http://localhost:9080/](http://localhost:9080/){target="_blank"} in your web browser.
+
+## Jenkins Configuration
+
+Once Jenkins is running, you will need to configure it. The first time you access Jenkins, you will be prompted to unlock it using an initial admin password.
+
+!!! warning "Admin"
+    Please, to avoid permission issues, run the console as administrator.
+
+Setting the a number of executors to 10 will allow us to run two jobs in parallel. This is useful for speeding up the build process, especially when we have multiple projects or stages that can be executed concurrently.
+
+![](../assets/images/jenkins.system.nexecutors.png){width=100%}
+
 
 ## Pipeline
 
