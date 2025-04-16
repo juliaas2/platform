@@ -51,7 +51,7 @@ Setting the a number of executors to 10 will allow us to run two jobs in paralle
 
 ## Pipeline
 
-In this checkpoint, we will create a Jenkins pipeline that will build and deploy our application. The pipeline will be defined in a `Jenkinsfile` located in the root of our project.
+In this checkpoint, we will create a Jenkins pipeline that will build and deploy our application, [Pipeline as Code](https://www.jenkins.io/doc/book/pipeline/pipeline-as-code/){target="_blank"}. The pipeline will be defined in a `Jenkinsfile` located in the root of our project.
 
 ![](../assets/images/jenkins.pipeline.png){width=100%}
 
@@ -70,3 +70,6 @@ api/
 
 The `Jenkinsfile` defines the stages of our pipeline, including building the application, running tests, and deploying the application. Each stage can be customized to fit the needs of your project.
 The pipeline can be triggered manually or automatically based on events such as code commits or pull requests. This allows for continuous integration and continuous delivery (CI/CD) of our application.
+
+
+[^1]: [Jenkins](https://www.jenkins.io/doc/book/using/){target="_blank"} - Jenkins documentation.
