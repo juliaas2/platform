@@ -27,17 +27,17 @@ The key functionalities of Gateway Microservice are:
 
 ``` tree
 api
-    gateway-service
-        src
-            main
-                java
-                    store
-                        gateway
+    gateway-service/
+        src/
+            main/
+                java/
+                    store/
+                        gateway/
                             GatewayApplication.java
                             GatewayResource.java
                             security
                                 CorsFilter.java
-                resources
+                resources/
                     application.yaml
         pom.xml
         Dockerfile

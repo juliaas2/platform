@@ -108,9 +108,9 @@ flowchart LR
 ## Docker Compose
 
 ``` tree
-api
-    account
-    account-service
+api/
+    account/
+    account-service/
     .env
     compose.yaml
 ```
@@ -140,13 +140,13 @@ api
 
 
 ``` tree
-api
-    account
-        src
-            main
-                java
-                    store
-                        account
+api/
+    account/
+        src/
+            main/
+                java/
+                    store/
+                        account/
                             AccountController.java
                             AccountIn.java
                             AccountOut.java
@@ -213,13 +213,13 @@ api
 ## Account-Service
 
 ``` tree
-api
-    account-service
-        src
-            main
-                java
-                    store
-                        account
+api/
+    account-service/
+        src/
+            main/
+                java/
+                    store/
+                        account/
                             Account.java
                             AccountApplication.java
                             AccountModel.java
@@ -227,10 +227,10 @@ api
                             AccountRepository.java
                             AccountResource.java
                             AccountService.java
-                resources
+                resources/
                     application.yaml
-                    db
-                        migration
+                    db/
+                        migration/
                             V2025.02.21.001__create_schema_account.sql
                             V2025.02.21.002__create_table_account.sql
         pom.xml
