@@ -1,0 +1,10 @@
+account/
+account-service/
+auth/
+auth-service/
+product/
+product-service/
+order/
+order-service/
+gateway/
+exchange-service/
