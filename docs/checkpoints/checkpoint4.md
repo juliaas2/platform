@@ -132,5 +132,8 @@ For setting up the credentials, you can use the Jenkins UI to create a new crede
 
 ![Jenkins Credentials](../assets/images/jenkins.crenditials.add.png){width=100%}
 
+Also, Jenkins could deploy the application to a Docker Compose environment. This can be done by adding a new stage to the pipeline that uses the `docker-compose` command to deploy the application.
+
+
 
 [^1]: [Jenkins](https://www.jenkins.io/doc/book/using/){target="_blank"} - Jenkins documentation.
