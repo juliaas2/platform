@@ -6,5 +6,6 @@ product/
 product-service/
 order/
 order-service/
-gateway/
+gateway-service/
 exchange-service/
+asddft
