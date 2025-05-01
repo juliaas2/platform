@@ -145,7 +145,7 @@ nav:
       - 3. Order API: exercises/exercise3.md
       - 4. Jenkins: exercises/exercise4.md
       - 5. MiniKube: exercises/exercise5.md
-      - Bottlenecks: exercises/exercise6.md
+      - Bottlenecks: exercises/bottlenecks.md
     - Team:
       - Project: exercises/project.md
   - Concepts:
