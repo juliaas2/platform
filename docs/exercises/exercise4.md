@@ -8,7 +8,13 @@ Now, it is time to create a pipeline to deploy the application to a cloud provid
 
 !!! warning "TO DO"
 
-    All microservices should be deployed in the same cluster: `account-service`, `auth-service`, `gateway-service`, `product-service`, and `order-service`.
+    All microservices should be deployed in the same cluster, to do this, it is mandatory to user Jenkinsfile in each microservice. The pipeline should be created in the root of the project, and it should include all microservices:
+    
+    - `account-service`;
+    - `auth-service`;
+    - `gateway-service`;
+    - `product-service`, and;
+    - `order-service`.
 
 A basic directory structure for the project is as follows:
 
