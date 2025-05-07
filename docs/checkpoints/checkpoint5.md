@@ -142,6 +142,11 @@ Example of a simple Kubernete's YAML files:
         POSTGRES_PASSWORD: c3RvcmU=
     ```
 
+    ```{ .bash .copy .select }
+    kubectl apply -f ./k8s/secrets.yaml
+    kubectl get secrets
+    ```
+
 === "configmap.yaml"
 
     ``` { .yaml .copy .select linenums="1" }
@@ -155,6 +160,84 @@ Example of a simple Kubernete's YAML files:
         POSTGRES_HOST: postgres
         POSTGRES_DB: store
     ```
+
+    ```{ .bash .copy .select }
+    kubectl apply -f ./k8s/configmap.yaml
+    kubectl get configmap
+    ```
+
+=== "deployment.yaml"
+
+    ``` { .yaml .copy .select linenums="1" }
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+        name: postgres
+    spec:
+    replicas: 1
+    selector:
+    matchLabels:
+        app: postgres
+    template:
+        metadata:
+            labels:
+                app: postgres
+    spec:
+        containers:
+          - name: postgres
+            image: 'postgres:latest'
+            imagePullPolicy: IfNotPresent
+            ports:
+              - containerPort: 5432
+            env:
+
+              - name: POSTGRES_DB
+                valueFrom:
+                  configMapKeyRef:
+                    name: postgres-configmap
+                    key: POSTGRES_DB
+
+              - name: POSTGRES_USER
+                valueFrom:
+                  secretKeyRef:
+                    name: postgres-credentials
+                    key: POSTGRES_USER
+
+              - name: POSTGRES_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: postgres-credentials
+                    key: POSTGRES_PASSWORD
+    ```
+
+    ```{ .bash .copy .select }
+    kubectl apply -f ./k8s/deployment.yaml
+    kubectl get deployments
+    kubectl get pods
+    ```
+
+=== "service.yaml"
+
+    ``` { .yaml .copy .select linenums="1" }
+    apiVersion: v1
+    kind: Service
+    metadata:
+        name: postgres
+        labels:
+            app: postgres
+    spec:
+        type: ClusterIP
+        ports:
+            - port: 5432
+        selector:
+            app: postgres
+    ```
+
+    ```{ .bash .copy .select }
+    kubectl apply -f ./k8s/service.yaml
+    kubectl get services
+    ```
+
 
 ---
 
