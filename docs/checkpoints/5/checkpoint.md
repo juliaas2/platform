@@ -1,5 +1,5 @@
 
-## 1. What is an Orchestrator?
+## What is an Orchestrator?
 An orchestrator is a system that automates the deployment, management, scaling, and operation of containerized applications. Containers package an application with its dependencies, making it portable across environments. Orchestrators handle critical tasks such as:
 
 - **Scheduling**: Placing containers on appropriate servers.
@@ -12,7 +12,7 @@ By abstracting infrastructure complexities, orchestrators ensure applications ru
 
 Orchestrators like Kubernetes, Docker Swarm, and Apache Mesos provide these capabilities, each with unique features and complexities. Kubernetes is the most widely adopted orchestrator, known for its robust ecosystem and community support.
 
-## 2. Difference Between Docker Compose and Kubernetes
+## Difference Between Docker Compose and Kubernetes
 Docker Compose and Kubernetes (K8s) both manage containerized applications but serve different purposes, with distinct scopes, complexities, and use cases:
 
 ### Docker Compose
@@ -39,7 +39,7 @@ Docker Compose and Kubernetes (K8s) both manage containerized applications but s
 
 Tools like Kompose can help migrate Docker Compose files to Kubernetes, easing the transition for growing applications [Docker Compose vs Kubernetes - Spacelift](https://spacelift.io/blog/docker-compose-vs-kubernetes).
 
-## 3. Alternatives to Kubernetes
+## Alternatives to Kubernetes
 Kubernetes is the leading container orchestration platform, but its complexity and resource demands may not suit every scenario. Alternatives exist for different environments—on-premise, cloud, and local—offering simpler, cloud-specific, or lightweight solutions. Below is a table summarizing popular alternatives with examples:
 
 | **Environment** | **Alternative** | **Description** | **Examples** |
@@ -105,7 +105,13 @@ flowchart TD
 
 - **Container**: The actual application running inside the Pod, isolated from others.
 
-- **Service**: This is like a load balancer, directing traffic to the right Pods based on rules you set.
+- **Service**: This is like a load balancer, directing traffic to the right Pods based on rules you set. A Service allows you to expose your application to the outside world or to other applications within the cluster. The exposed service can be of different types:
+
+    | Types of Services | Description |
+    |------------------|-------------|
+    | **ClusterIP** | The default type, which exposes the service on a cluster-internal IP. This means that the service is only reachable from within the cluster. |
+    | **NodePort** | Exposes the service on each node's IP at a static port. This allows you to access the service from outside the cluster using `<NodeIP>:<NodePort>`. |
+    | **LoadBalancer** | Creates an external load balancer in supported cloud providers, routing traffic to your service. |
 
 - **ConfigMap**: A way to pass configuration data to your application without hardcoding it into the container.
 
@@ -116,13 +122,7 @@ Example of a simple Kubernete's YAML files:
 === "secrets.yaml"
 
     ``` { .yaml .copy .select linenums="1" }
-    apiVersion: v1
-    kind: Secret
-    metadata:
-        name: postgres-credentials
-    data:
-        POSTGRES_USER: c3RvcmU=
-        POSTGRES_PASSWORD: c3RvcmU=
+    --8<-- "https://raw.githubusercontent.com/Insper/platform/refs/heads/main/docs/checkpoints/5/k8s/secrets.yaml"
     ```
 
     ```{ .bash .copy .select }
@@ -133,15 +133,7 @@ Example of a simple Kubernete's YAML files:
 === "configmap.yaml"
 
     ``` { .yaml .copy .select linenums="1" }
-    apiVersion: v1
-    kind: ConfigMap
-    metadata:
-        name: postgres-configmap
-        labels:
-            app: postgres
-    data:
-        POSTGRES_HOST: postgres
-        POSTGRES_DB: store
+    --8<-- "https://raw.githubusercontent.com/Insper/platform/refs/heads/main/docs/checkpoints/5/k8s/configmap.yaml"
     ```
 
     ```{ .bash .copy .select }
@@ -152,45 +144,7 @@ Example of a simple Kubernete's YAML files:
 === "deployment.yaml"
 
     ``` { .yaml .copy .select linenums="1" }
-    apiVersion: apps/v1
-    kind: Deployment
-    metadata:
-        name: postgres
-    spec:
-    replicas: 1
-    selector:
-    matchLabels:
-        app: postgres
-    template:
-        metadata:
-            labels:
-                app: postgres
-    spec:
-        containers:
-          - name: postgres
-            image: 'postgres:latest'
-            imagePullPolicy: IfNotPresent
-            ports:
-              - containerPort: 5432
-            env:
-
-              - name: POSTGRES_DB
-                valueFrom:
-                  configMapKeyRef:
-                    name: postgres-configmap
-                    key: POSTGRES_DB
-
-              - name: POSTGRES_USER
-                valueFrom:
-                  secretKeyRef:
-                    name: postgres-credentials
-                    key: POSTGRES_USER
-
-              - name: POSTGRES_PASSWORD
-                valueFrom:
-                  secretKeyRef:
-                    name: postgres-credentials
-                    key: POSTGRES_PASSWORD
+    --8<-- "https://raw.githubusercontent.com/Insper/platform/refs/heads/main/docs/checkpoints/5/k8s/deployment.yaml"
     ```
 
     ```{ .bash .copy .select }
@@ -202,18 +156,7 @@ Example of a simple Kubernete's YAML files:
 === "service.yaml"
 
     ``` { .yaml .copy .select linenums="1" }
-    apiVersion: v1
-    kind: Service
-    metadata:
-        name: postgres
-        labels:
-            app: postgres
-    spec:
-        type: ClusterIP
-        ports:
-            - port: 5432
-        selector:
-            app: postgres
+    --8<-- "https://raw.githubusercontent.com/Insper/platform/refs/heads/main/docs/checkpoints/5/k8s/service.yaml"
     ```
 
     ```{ .bash .copy .select }
