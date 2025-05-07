@@ -88,6 +88,73 @@ Kubernetes is the leading container orchestration platform, but its complexity a
 
 Choosing the right tool depends on factors like workload scale, team expertise, infrastructure constraints, and whether portability across clouds is needed. For small projects, Docker Compose or Nomad may suffice, while large, distributed systems often benefit from Kubernetes or cloud-native solutions like ECS.
 
+---
+
+## Kubernetes
+
+Kubernetes is an open-source container orchestration platform that automates the deployment, scaling, and management of containerized applications. It provides a robust framework for running distributed systems resiliently, allowing you to manage clusters of hosts running Linux containers. A `cluster` is a set of machines (physical or virtual) that run Kubernetes and can be managed as a single entity. To manage these clusters, Kubernetes uses a set of APIs and a control plane to manage the state of the cluster.
+
+``` mermaid
+flowchart TD
+    Deployment(fa:fa-file Deployment) -->|defines| ReplicaSet
+    ReplicaSet -->|manages| pod((Pod))
+    pod:::red -->|runs| Container
+    Deployment -->|scales| pod
+    Deployment -->|updates| pod
+
+    Service(fa:fa-file Service) -->|exposes| pod
+
+    subgraph  
+        ConfigMap(fa:fa-file ConfigMap)
+        Secret(fa:fa-file Secret)
+    end
+
+    ConfigMap --> Deployment
+    Secret --> Deployment
+    classDef red fill:#fcc
+```
+
+- **Deployment**: This is like the manager for your application, deciding how many copies (replicas) should run and updating them when needed.
+
+- **ReplicaSet**: It ensures the right number of Pods (the actual running containers) are always available, creating or deleting them as necessary.
+
+- **Pod**: The smallest unit, where your application actually runs, often containing one or more containers.
+
+- **Container**: The actual application running inside the Pod, isolated from others.
+
+- **Service**: This is like a load balancer, directing traffic to the right Pods based on rules you set.
+
+- **ConfigMap**: A way to pass configuration data to your application without hardcoding it into the container.
+
+- **Secret**: Similar to ConfigMap, but used for sensitive information like passwords or API keys, ensuring they are stored securely.
+
+Example of a simple Kubernete's YAML files:
+
+=== "secrets.yaml"
+
+    ``` { .yaml .copy .select linenums="1" }
+    apiVersion: v1
+    kind: Secret
+    metadata:
+        name: postgres-credentials
+    data:
+        POSTGRES_USER: c3RvcmU=
+        POSTGRES_PASSWORD: c3RvcmU=
+    ```
+
+=== "configmap.yaml"
+
+    ``` { .yaml .copy .select linenums="1" }
+    apiVersion: v1
+    kind: ConfigMap
+    metadata:
+        name: postgres-configmap
+        labels:
+            app: postgres
+    data:
+        POSTGRES_HOST: postgres
+        POSTGRES_DB: store
+    ```
 
 ---
 
@@ -106,11 +173,12 @@ kubectl version --client
 |---------|-------------|
 | `kubectl get all` | List all resources in the current namespace. |
 | `kubectl get pods` | List all pods in the current namespace. |
+| `kubectl get pod <pod-name> -o wide` | Get detailed information about a specific pod. |
 | `kubectl get services` | List all services in the current namespace. |
 | `kubectl get deployments` | List all deployments in the current namespace. |
 | `kubectl describe pod <pod-name>` | Show detailed information about a specific pod. |
 | `kubectl logs <pod-name>` | View logs for a specific pod. |
-| `kubectl exec -it <pod-name> -- /bin/bash` | Open a shell in a running pod. |
+| `kubectl exec -it <pod-name> -- bash` | Open a shell in a running pod. |
 | `kubectl apply -f <file.yaml>` | Apply a configuration file to create/update resources. |
 | `kubectl delete pod <pod-name>` | Delete a specific pod. |
 | `kubectl scale deployment <deployment-name> --replicas=<number>` | Scale a deployment to a specified number of replicas. |
@@ -119,6 +187,15 @@ kubectl version --client
 | `kubectl get namespaces` | List all namespaces in the cluster. |
 | `kubectl get configmaps` | List all config maps in the current namespace. |
 | `kubectl get secrets` | List all secrets in the current namespace. |
+| `kubectl get ingress` | List all ingress resources in the current namespace. |
+| `kubectl delete --all` | Delete all resources in the current namespace. |
+
+## Minikube
+
+Minikube is a tool that makes it easy to run Kubernetes locally. It creates a single-node Kubernetes cluster on your machine, allowing you to test and develop applications in a Kubernetes environment without needing a full cloud setup.
+
+To install Minikube, follow the instructions in the [Minikube documentation](https://minikube.sigs.k8s.io/docs/start/){:target="_blank"}. After installation, you can start a Minikube cluster with:
+
 
 
 

@@ -109,6 +109,7 @@ plugins:
   - git-committers:
       repository: hsandmann/hsandmann.github.com
       branch: main
+      token: !ENV MKDOCS_GIT_COMMITTERS_APIKEY
   - search
   - minify:
       minify_html: true
