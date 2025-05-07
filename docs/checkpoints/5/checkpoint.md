@@ -1,25 +1,7 @@
 
-## Key Points
-- An orchestrator automates container management, including deployment and scaling.
-- Docker Compose is simpler, for single-host setups; Kubernetes handles clusters.
-- Alternatives to Kubernetes vary by environment, like Nomad or Amazon ECS.
-- Choosing the right tool depends on scale, complexity, and infrastructure.
-
-## What is an Orchestrator?
-An orchestrator is a tool that simplifies managing containerized applications by automating tasks like deploying, scaling, and networking containers. It ensures applications run smoothly across multiple servers, handling things like load balancing and restarting failed containers. This is especially useful for large-scale systems where manual management would be impractical.
-
-## Docker Compose vs. Kubernetes
-Docker Compose is great for running multiple containers on a single computer, often used by developers for testing or small projects. It uses a simple file to define how containers work together. Kubernetes, however, is designed for bigger, more complex systems, managing containers across many servers with features like automatic scaling and self-healing. While Docker Compose is easier to learn, Kubernetes offers more power for production environments.
-
-## Alternatives to Kubernetes
-There are many tools besides Kubernetes for managing containers, depending on whether you’re working on your own servers (on-premise), in the cloud, or locally on your computer. For example, Nomad is a simpler option for on-premise setups, Amazon ECS is popular in the cloud, and Docker Compose is common for local development. The table below lists some options with examples.
-
----
-
-# Kubernetes Overview
-
 ## 1. What is an Orchestrator?
 An orchestrator is a system that automates the deployment, management, scaling, and operation of containerized applications. Containers package an application with its dependencies, making it portable across environments. Orchestrators handle critical tasks such as:
+
 - **Scheduling**: Placing containers on appropriate servers.
 - **Scaling**: Adding or removing containers based on demand.
 - **Networking**: Managing communication between containers.
@@ -96,22 +78,23 @@ Kubernetes is an open-source container orchestration platform that automates the
 
 ``` mermaid
 flowchart TD
-    Deployment(fa:fa-file Deployment) -->|defines| ReplicaSet
+    Deployment:::orange -->|defines| ReplicaSet
     ReplicaSet -->|manages| pod((Pod))
     pod:::red -->|runs| Container
     Deployment -->|scales| pod
     Deployment -->|updates| pod
 
-    Service(fa:fa-file Service) -->|exposes| pod
+    Service:::orange -->|exposes| pod
 
     subgraph  
-        ConfigMap(fa:fa-file ConfigMap)
-        Secret(fa:fa-file Secret)
+        ConfigMap:::orange
+        Secret:::orange
     end
 
     ConfigMap --> Deployment
     Secret --> Deployment
-    classDef red fill:#fcc
+    classDef red fill:#f55
+    classDef orange fill:#ffa500
 ```
 
 - **Deployment**: This is like the manager for your application, deciding how many copies (replicas) should run and updating them when needed.
@@ -251,7 +234,7 @@ To install `kubectl`, follow the instructions in the [Kubernetes documentation](
 kubectl version --client
 ```
 
-## Kubectl Cheat Sheet
+### Kubectl Cheat Sheet
 | Command | Description |
 |---------|-------------|
 | `kubectl get all` | List all resources in the current namespace. |
@@ -277,9 +260,20 @@ kubectl version --client
 
 Minikube is a tool that makes it easy to run Kubernetes locally. It creates a single-node Kubernetes cluster on your machine, allowing you to test and develop applications in a Kubernetes environment without needing a full cloud setup.
 
-To install Minikube, follow the instructions in the [Minikube documentation](https://minikube.sigs.k8s.io/docs/start/){:target="_blank"}. After installation, you can start a Minikube cluster with:
+To install Minikube, follow the instructions in the [Minikube documentation](https://minikube.sigs.k8s.io/docs/start/){:target="_blank"}.
 
+### Minikube Cheat Sheet
 
+| Command | Description |
+|---------|-------------|
+| `minikube start --driver=<driver> --profile=<profile>` | Start a Minikube cluster with a specified driver and profile. |
+| `minikube profile list` | List all Minikube profiles. |
+| `minikube stop --all` | Stop all Minikube clusters. |
+| `minikube status` | Check the status of the Minikube cluster. |
+| `minikube dashboard` | Open the Kubernetes dashboard in your web browser. |
+| `minikube ssh` | SSH into the Minikube VM. |
+| `minikube delete` | Delete the Minikube cluster. |
+| `minikube delete --all --purge` | Delete all Minikube clusters and remove their configurations. |
 
 
 [^1]: [What is Container Orchestration? - Red Hat](https://www.redhat.com/en/topics/containers/what-is-container-orchestration){:target="_blank"}
