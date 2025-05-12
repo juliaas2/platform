@@ -11,9 +11,6 @@
 | Apresentação | Storytelling | 20% |
 
 
----
-
----
 
 
 !!! danger "Entrega"
