@@ -35,7 +35,8 @@ Message queues are a great way to decouple your application and improve its perf
 
 Load balancing is the process of distributing incoming network traffic across multiple servers. This helps to ensure that no single server is overwhelmed with requests, improving the overall performance and reliability of your application. Tools like Nginx and HAProxy can help you implement load balancing in your application.
 
-<iframe width="100%" height="470" src="https://www.youtube.com/embed/5YOEIV-xPdc" allowfullscreen></iframe>
+- [How To Configure Nginx as a Reverse Proxy on Ubuntu](https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-as-a-reverse-proxy-on-ubuntu-22-04){target="_blank"}
+- <iframe width="100%" height="470" src="https://www.youtube.com/embed/5YOEIV-xPdc" allowfullscreen></iframe>
 
 
 
