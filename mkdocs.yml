@@ -82,7 +82,7 @@ markdown_extensions:
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.inlinehilite
   - pymdownx.snippets:
-      url_download: false
+      url_download: true
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
