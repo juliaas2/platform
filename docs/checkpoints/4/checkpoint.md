@@ -82,35 +82,7 @@ api/
 ```
 
 ``` { .groovy .copy .select title="Jenkinsfile" }
-pipeline {
-    agent any
-    environment {
-        SERVICE = 'account'
-        NAME = "humbertosandmann/${env.SERVICE}"
-    }
-    stages {
-        stage('Dependecies') {
-            steps {
-                build job: 'account', wait: true
-            }
-        }
-        stage('Build') { 
-            steps {
-                sh 'mvn -B -DskipTests clean package'
-            }
-        }      
-        stage('Build & Push Image') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerhub-credential', usernameVariable: 'USERNAME', passwordVariable: 'TOKEN')]) {
-                    sh "docker login -u $USERNAME -p $TOKEN"
-                    sh "docker buildx create --use --platform=linux/arm64,linux/amd64 --node multi-platform-builder-${env.SERVICE} --name multi-platform-builder-${env.SERVICE}"
-                    sh "docker buildx build --platform=linux/arm64,linux/amd64 --push --tag ${env.NAME}:latest --tag ${env.NAME}:${env.BUILD_ID} -f Dockerfile ."
-                    sh "docker buildx rm --force multi-platform-builder-${env.SERVICE}"
-                }
-            }
-        }
-    }
-}
+--8<-- "https://raw.githubusercontent.com/hsandmann/insper.store.account-service/refs/heads/main/Jenkinsfile"
 ```
 
 The pipeline is defined in a declarative syntax, which makes it easy to read and understand. Each stage can contain multiple steps, which are the individual tasks that need to be performed:
