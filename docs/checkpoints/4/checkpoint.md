@@ -65,7 +65,7 @@ api/
     === "Jenkinsfile"
 
         ``` { .groovy .copy .select linenums="1" }
-        --8<-- "https://raw.githubusercontent.com/hsandmann/insper.store.account-service/refs/heads/main/Jenkinsfile"
+        --8<-- "https://raw.githubusercontent.com/hsandmann/insper.store.account/refs/heads/main/Jenkinsfile"
         ```
 
 The `Jenkinsfile` defines the stages of our pipeline, including building the application, running tests, and deploying the application - **Pipeline as Code**. Each stage can be customized to fit the needs of your project.
